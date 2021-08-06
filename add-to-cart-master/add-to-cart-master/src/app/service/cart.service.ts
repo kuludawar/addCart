@@ -13,17 +13,19 @@ export class CartService {
   getProducts(){
     return this.productList.asObservable();
   }
-
+  
   setProduct(product : any){
     this.cartItemList.push(...product);
     this.productList.next(product);
   }
+  //add item in the cart
   addtoCart(product : any){
     this.cartItemList.push(product);
     this.productList.next(this.cartItemList);
     this.getTotalPrice();
-    console.log(this.cartItemList)
+    //console.log(this.cartItemList)
   }
+  // get total price
   getTotalPrice() : number{
     let grandTotal = 0;
     this.cartItemList.map((a:any)=>{
@@ -37,8 +39,10 @@ export class CartService {
         this.cartItemList.splice(index,1);
       }
     })
+    //update the data after remove single data
     this.productList.next(this.cartItemList);
   }
+  // it removes all data
   removeAllCart(){
     this.cartItemList = []
     this.productList.next(this.cartItemList);
